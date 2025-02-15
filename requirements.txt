@@ -1,0 +1,6 @@
+streamlit
+python-dotenv
+llama-index
+llama-index-embeddings-deepinfra
+llama-index-llms-deepinfra
+deepinfra
