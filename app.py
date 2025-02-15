@@ -63,7 +63,7 @@ promt = "Eres un asistente experto en emergencias llamado AsistencIA. Responde �
 #promt = "Eres un asistente experto en emergencias. Solo puedes responder preguntas relacionadas con la información contenida en los documentos proporcionados. Si la consulta no está dentro de estos temas, responde educadamente que no puedes ayudar.Si la respuesta requiere información adicional para ser más precisa o actualizada, puedes buscar en internet, pero solo si está estrictamente relacionada con los temas cubiertos en los documentos. No generes respuestas con información no verificada o fuera de contexto.Responde de manera clara, precisa y útil, sin hacer referencia explícita a los documentos en tus respuestas."
 
 # Saludo
-saludo = "👋 ¡Hola! Soy **AsistAI**, tu asistente en situaciones de emergencia. Estoy aquí para ayudarte a resolver cualquier urgencia o aprender qué hacer en momentos críticos. ¿En qué puedo ayudarte?"
+saludo = "👋 ¡Hola! Soy **AsistencIA**, tu asistente en situaciones de emergencia. Estoy aquí para ayudarte a resolver cualquier urgencia o aprender qué hacer en momentos críticos. ¿En qué puedo ayudarte?"
 
 # Inicializar historial de conversación en la sesión de Streamlit
 if "messages" not in st.session_state:
