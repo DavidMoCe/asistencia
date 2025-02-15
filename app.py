@@ -13,9 +13,12 @@ st.set_page_config(page_title="Asistente de Emergencia", page_icon="🚨", layou
 load_dotenv()
 deepinfra_api_key = os.getenv("DEEPINFRA_TOKEN")
 
-
 if not deepinfra_api_key:
-    st.error("Falta la API Key de DeepInfra. Configúrala en un archivo .env")
+    # Cargar la API Key de DeepInfra desde las secrets de Streamlit Cloud
+    deepinfra_api_key = st.secrets["DEEPINFRA_TOKEN"]
+    
+    if not deepinfra_api_key:
+        st.error("Falta la API Key de DeepInfra. Configúrala en un archivo .env o en el apartado secrets de stramlit cloud")
     
 
 # Definir el modelo de embeddings y LLM de DeepInfra
@@ -130,4 +133,3 @@ if st.session_state.processing and len(st.session_state.messages) > 1 and st.ses
         
         st.session_state.processing = False  # Desbloquear entrada de usuario después de la consulta
         st.rerun()  # Recargar la interfaz para reflejar el cambio
-
