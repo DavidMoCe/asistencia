@@ -116,7 +116,7 @@ if user_query := st.chat_input("Escribe tu pregunta...", disabled=st.session_sta
     st.chat_message("user", avatar="🧑‍💼").write(f"{user_query}")
     
     # Recargar la interfaz para reflejar el cambio
-    st.experimental_rerun()
+    st.rerun()
     
 # Procesar respuesta en una iteración separada después de que la UI ya se haya actualizado
 if st.session_state.processing and len(st.session_state.messages) > 1 and st.session_state.messages[-1]["role"] == "user":
@@ -155,4 +155,4 @@ if st.session_state.processing and len(st.session_state.messages) > 1 and st.ses
         # Desbloquear entrada de usuario después de obtener la consulta
         st.session_state.processing = False
         # Recargar la interfaz para reflejar el cambio
-        st.experimental_rerun()
+        st.rerun()
