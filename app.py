@@ -51,13 +51,13 @@ def load_index():
     
     # Usar DeepInfraEmbeddingModel para el índice
     index = VectorStoreIndex.from_documents(documents, embed_model=embedding_model)
-    return index.as_query_engine()
+    return index.as_query_engine(streaming=True, similarity_top_k=1)
 
 # Cargar el índice y el modelo de embeddings
 query_engine = load_index()
 
 # Configuración de la conversación
-promt = "Eres un asistente experto en emergencias llamado AsistencIA. Responde únicamente preguntas relacionadas con la información en los documentos proporcionados. Si la pregunta no está cubierta, indica que no puedes responder. Si es necesario, complementa con información de internet, pero solo si está estrictamente relacionada con los documentos. No incluyas información no verificada ni hagas referencia a los documentos. Da respuestas claras, precisas y directas, sin explicaciones innecesarias. Intenta dar siempre la solución al problema planteado con una respuesta concisa."
+promt = "Eres un asistente experto en emergencias llamado AsistencIA. Responde únicamente preguntas relacionadas con la información en los documentos proporcionados. Si la pregunta no está cubierta, indica que no puedes responder. Si es necesario, complementa con información de internet, pero solo si está estrictamente relacionada con los documentos. No incluyas información no verificada ni hagas referencia a los documentos. Da respuestas claras, precisas y directas, sin explicaciones innecesarias. Intenta dar siempre la solución al problema planteado con una respuesta concisa.Proporciona el numero de emergencia siempre que puedas o la lista de números que conozcas."
 
 # opcion 2
 #promt = "Eres un asistente experto en emergencias. Solo puedes responder preguntas relacionadas con la información contenida en los documentos proporcionados. Si la consulta no está dentro de estos temas, responde educadamente que no puedes ayudar.Si la respuesta requiere información adicional para ser más precisa o actualizada, puedes buscar en internet, pero solo si está estrictamente relacionada con los temas cubiertos en los documentos. No generes respuestas con información no verificada o fuera de contexto.Responde de manera clara, precisa y útil, sin hacer referencia explícita a los documentos en tus respuestas."
@@ -105,31 +105,54 @@ for msg in st.session_state.messages:
         st.chat_message("assistant", avatar="🤖").write(f"{msg['content']}")
     
 # Entrada del usuario
-if user_query := st.chat_input("Escribe tu pregunta...", disabled=st.session_state.processing, key="user_input"):
-    st.session_state.processing = True  # Bloquear entrada de usuario durante la consulta
+if user_query := st.chat_input("Escribe tu pregunta...", disabled=st.session_state.processing):
+    # Bloquear entrada de usuario durante la consulta
+    st.session_state.processing = True
     
+    # Agregar la pregunta al historial de mensajes
     st.session_state.messages.append({"role": "user", "content": user_query})
+    
+    # Mostrar la pregunta en el chat
     st.chat_message("user", avatar="🧑‍💼").write(f"{user_query}")
     
-    st.rerun()  # Recargar la interfaz para reflejar el cambio
+    # Recargar la interfaz para reflejar el cambio
+    st.experimental_rerun()
     
-    # Procesar respuesta en una iteración separada después de que la UI ya se haya actualizado
+# Procesar respuesta en una iteración separada después de que la UI ya se haya actualizado
 if st.session_state.processing and len(st.session_state.messages) > 1 and st.session_state.messages[-1]["role"] == "user":
-    with st.spinner("Buscando respuesta..."):
-        # Crear un contexto con todas las preguntas y respuestas previas
-        conversation_history = "\n".join(
-            [f"{msg['role'].capitalize()}: {msg['content']}" for msg in st.session_state.messages]
-        )
-    
-        # Incluir el historial en la consulta
-        response = query_engine.query(f"Historial de conversación:\n{conversation_history}\n\nNueva pregunta: {user_query}")
+        # Realizar consulta de respuesta en una iteración separada
+        with st.chat_message("assistant", avatar="🤖"):
+            # Crear un contexto con todas las preguntas y respuestas previas
+            conversation_history = "\n".join(
+                [f"(msg['role'].capitalize()): {msg['content']}" for msg in st.session_state.messages]
+            )
+            
+            # Colocamos el spinner en un contenedor vacío para que se pueda manipular
+            spinner_placeholder = st.empty()
+            # Colocamos el contenedor de respuesta en un contenedor vacío para que se pueda manipular
+            response_placeholder = st.empty()
+            # Variable para guardar la respuesta
+            response_text = ""
 
-        # Agregar la respuesta del motor de búsqueda al historial de mensajes
+            # Mostrar spinner junto al avatar
+            with spinner_placeholder:
+                with st.spinner("Pensando..."):
+                # Generar respuesta en streaming
+                    streaming_response = query_engine.query(f"Historial de conversación:\n{conversation_history}\n\nNueva pregunta: {user_query}")
+                    
+                    # Quitar el spinner después de completar la operación
+                    spinner_placeholder.empty()
+                    for fragment in streaming_response.response_gen:
+                        response_text += fragment  # Acumular texto generado
+                        response_placeholder.write(response_text)  # Mostrarlo 
+
+            # Asignar el texto completo como respuesta final
+            response = response_text
+
+        # Agregar la respuesta al historial de mensajes
         st.session_state.messages.append({"role": "assistant", "content": response})
-
-        # Mostrar respuesta en el chat
-        #st.chat_message("assistant").write(response)
-        st.chat_message("assistant", avatar="🤖").write(response.response)
         
-        st.session_state.processing = False  # Desbloquear entrada de usuario después de la consulta
-        st.rerun()  # Recargar la interfaz para reflejar el cambio
+        # Desbloquear entrada de usuario después de obtener la consulta
+        st.session_state.processing = False
+        # Recargar la interfaz para reflejar el cambio
+        st.experimental_rerun()
