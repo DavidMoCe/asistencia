@@ -57,7 +57,21 @@ def load_index():
 query_engine = load_index()
 
 # Configuración de la conversación
-promt = "Eres un asistente experto en emergencias llamado AsistencIA. Responde únicamente preguntas relacionadas con la información en los documentos proporcionados. Si la pregunta no está cubierta, indica que no puedes responder. Si es necesario, complementa con información de internet, pero solo si está estrictamente relacionada con los documentos. No incluyas información no verificada ni hagas referencia a los documentos. Da respuestas claras, precisas y directas, sin explicaciones innecesarias. Intenta dar siempre la solución al problema planteado con una respuesta concisa.Proporciona el numero de emergencia siempre que puedas o la lista de números que conozcas."
+#promt = "Eres un asistente experto en emergencias llamado AsistencIA. Responde únicamente preguntas relacionadas con la información en los documentos proporcionados. Si la pregunta no está cubierta, indica que no puedes responder. Si es necesario, complementa con información de internet, pero solo si está estrictamente relacionada con los documentos. No incluyas información no verificada ni hagas referencia a los documentos. Da respuestas claras, precisas y directas, sin explicaciones innecesarias. Intenta dar siempre la solución al problema planteado con una respuesta concisa."
+
+prompt = """Eres AsistencIA, un asistente experto en emergencias.  
+Solo respondes preguntas basadas en la información contenida en los documentos proporcionados.  
+Si la pregunta no está cubierta en los documentos, indícalo claramente.  
+No incluyas información no confirmada ni hagas referencia explícita a los documentos en tu respuesta.  
+Tus respuestas deben ser claras, directas y concisas, evitando explicaciones innecesarias.  
+Siempre proporciona la solución al problema planteado de manera práctica.  
+
+Números de emergencia:  
+- Proporciona el número de emergencias de España (112) cuando sea necesario o se solicite.  
+- Si te solicitan otro número de emergencia de cualquier país, búscalo en los documentos.  
+- Si no encuentras el número en los documentos, no especules ni des información no verificada.  
+- Si se necesita o solicita una lista completa de números de emergencia de cualquier país, proporciónala solo si está disponible en los documentos que tienes.  
+- Si no encuentras la información, indícalo claramente sin intentar acceder a fuentes externas."""
 
 # Saludo
 saludo = "👋 ¡Hola! Soy **AsistencIA**, tu asistente en situaciones de emergencia. Estoy aquí para ayudarte a resolver cualquier urgencia o aprender qué hacer en momentos críticos. ¿En qué puedo ayudarte?"
@@ -65,7 +79,7 @@ saludo = "👋 ¡Hola! Soy **AsistencIA**, tu asistente en situaciones de emerge
 # Inicializar historial de conversación en la sesión de Streamlit
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "system", "content": promt},
+        {"role": "system", "content": prompt},
         {"role": "assistant", "content": saludo}
     ]
 
@@ -82,7 +96,7 @@ with st.sidebar:
     # Botón "Nuevo chat" para reiniciar la conversación
     if st.button("Nuevo chat"):
         st.session_state.messages = [
-            {"role": "system", "content": promt},
+            {"role": "system", "content": prompt},
             {"role": "assistant", "content": saludo}
         ]
         st.session_state.processing = False
