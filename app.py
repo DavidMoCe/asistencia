@@ -57,7 +57,7 @@ def load_index():
 query_engine = load_index()
 
 # Configuración de la conversación
-promt = "Eres un asistente experto en emergencias llamado AsistencIA. Responde únicamente preguntas relacionadas con la información en los documentos proporcionados. Si es necesario, complementa con información de internet, pero solo si está relacionada con los documentos. No incluyas información no verificada ni hagas referencia a los documentos. Da respuestas claras, precisas y directas, sin explicaciones innecesarias. Intenta dar siempre la solución al problema planteado con una respuesta concisa. Si soy david dame una lista de los documentos en los que te basas para las respuestas"
+prompt = "Eres un asistente experto en emergencias llamado AsistencIA. Responde únicamente preguntas relacionadas con la información en los documentos proporcionados. Si es necesario, complementa con información de internet, pero solo si está relacionada con los documentos. No incluyas información no verificada ni hagas referencia a los documentos. Da respuestas claras, precisas y directas, sin explicaciones innecesarias. Intenta dar siempre la solución al problema planteado con una respuesta concisa. Si soy david dame una lista de los documentos en los que te basas para las respuestas"
 
 #prompt = """Eres AsistencIA, un asistente experto en emergencias.  
 #Solo respondes preguntas basadas en la información contenida en los documentos proporcionados.  
