@@ -31,7 +31,7 @@ Settings.embed_model = DeepInfraEmbeddingModel(
     query_prefix="query: ",  # Prefijo de consulta
 )
 
-Settings.chunk_size = 512
+Settings.chunk_size = 50000
 
 # Crear el modelo de embeddings
 embedding_model = Settings.embed_model
