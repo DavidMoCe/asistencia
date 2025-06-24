@@ -1,5 +1,18 @@
 # 🚨 AsistAI - Asistente de Emergencia
 
+## 🌍 Choose Your Language / Elige tu idioma:
+- [English](#english-gb)
+- [Español](#español-es)
+
+---
+
+## English GB
+
+
+---
+
+## Español ES
+
 AsistAI es una aplicación inteligente desarrollada con **Streamlit** que actúa como un asistente experto en situaciones de emergencia. Utiliza modelos de lenguaje grandes (LLMs) y vectores de documentos para responder preguntas basadas en información contenida en archivos PDF cargados por el usuario.
 
 ---
