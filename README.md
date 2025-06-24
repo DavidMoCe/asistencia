@@ -75,7 +75,7 @@ The app will automatically open in your default browser.
 - [dotenv](https://pypi.org/project/python-dotenv) for managing API keys
 
 ## 📜 License
-This project is licensed under the CC BY-NC 4.0 license. See the [`LICENSE`](#) file for more details.
+This project is licensed under the CC BY-NC 4.0 license. See the [`LICENSE`](https://github.com/DavidMoCe/asistencia/blob/main/LICENSE.txt) file for more details.
 
 ## ❤️ Credits
 Developed by **David Moreno Cerezo**
@@ -160,7 +160,7 @@ La app se abrirá automáticamente en tu navegador predeterminado.
 - [dotenv](https://pypi.org/project/python-dotenv) para gestionar claves
 
 ## 📜 Licencia
-Este proyecto está licenciado bajo la licencia **CC BY-NC 4.0**. Consulta el archivo [`LICENSE`](#) para más detalles.
+Este proyecto está licenciado bajo la licencia **CC BY-NC 4.0**. Consulta el archivo [`LICENSE`](https://github.com/DavidMoCe/asistencia/blob/main/LICENSE.txt) para más detalles.
 
 ## ❤️ Créditos
 Desarrollado por **David Moreno Cerezo**
