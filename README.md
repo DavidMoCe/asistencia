@@ -15,7 +15,7 @@ AsistAI es una aplicación inteligente desarrollada con **Streamlit** que actúa
 ---
 
 ## 📁 Estructura del proyecto
-
+```
 asistencia-main/
 │
 ├── app.py # Aplicación principal de Streamlit
@@ -23,7 +23,7 @@ asistencia-main/
 ├── .env # Archivo con variables de entorno (token DeepInfra)
 ├── vector_index.pkl # Archivo generado con el índice vectorial
 └── requirements.txt # Dependencias necesarias
-
+```
 
 ---
 
