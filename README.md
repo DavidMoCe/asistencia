@@ -1,4 +1,4 @@
-# 🚨 AsistAI - Asistente de Emergencia
+# 🚨 AsistAI - Emergency Assistant
 
 ## 🌍 Choose Your Language / Elige tu idioma:
 - [English](#english-gb)
@@ -7,6 +7,78 @@
 ---
 
 ## English GB
+
+AsistAI is an intelligent application built with Streamlit that acts as an expert assistant in emergency situations. It uses large language models (LLMs) and document vectorization to answer questions based on information contained in user-uploaded PDF files.
+
+---
+
+## 🧠 Features
+- 🔍 Accurate answers based on locally uploaded PDF documents.
+- 💬 Chat-style interface built with Streamlit.
+- 🤖 Uses LLMs and embedding models via DeepInfra.
+- 📚 Document indexing powered by llama-index (VectorStore).
+- 🔐 Secure API key loading from .env or secrets in Streamlit Cloud.
+
+## 📁 Project Structure
+```bash
+asistencia-main/
+│
+├── app.py                 # Main Streamlit application
+├── docs/                  # Folder for user-provided PDF documents
+├── .env                   # Environment variables file (DeepInfra token)
+├── vector_index.pkl       # Generated file for the document vector index
+└── requirements.txt       # Required Python dependencies
+```
+
+## ⚙️ Installation
+1. Clone the repository
+```bash
+git clone https://github.com/your_username/asistencia-main.git
+cd asistencia-main
+```
+
+2. Create a virtual environment (optional but recommended)
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+4. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+## 🔑 Configuration
+1. Environment variables
+Create a .env file in the root directory with the following content:
+```env
+DEEPINFRA_TOKEN=your_deepinfra_api_key
+```
+
+## 🚀 Running the App
+```bash
+streamlit run app.py
+```
+
+The app will automatically open in your default browser.
+
+## 📌 Usage
+1. Place your PDF documents in the docs/ folder.
+2. Start the app and type your emergency-related questions.
+3. The assistant will respond based solely on the content of the available documents.
+
+## 🧰 Technologies Used
+- [Streamlit](https://streamlit.io)
+- [llama-index](https://www.llamaindex.ai)
+- [DeepInfra](https://deepinfra.com) for LLMs and embeddings
+- [pypdf](https://pypi.org/project/pypdf) for PDF parsing
+- [dotenv](https://pypi.org/project/python-dotenv) for managing API keys
+
+## 📜 License
+This project is licensed under the CC BY-NC 4.0 license. See the [`LICENSE`](#) file for more details.
+
+## ❤️ Credits
+Developed by **David Moreno Cerezo**
 
 
 ---
@@ -28,7 +100,7 @@ AsistAI es una aplicación inteligente desarrollada con **Streamlit** que actúa
 ---
 
 ## 📁 Estructura del proyecto
-```
+```bash
 asistencia-main/
 │
 ├── app.py # Aplicación principal de Streamlit
